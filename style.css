@@ -131,3 +131,19 @@ figcaption {
   background-color: #fff3cd; /* Highlight when clicked */
   transition: background-color 0.5s;
 }
+
+.bib-entry a {
+    color: var(--primary);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--accent);
+}
+.bib-entry a:hover {
+    color: var(--accent);
+    border-bottom: 1px solid var(--accent);
+}
+.bib-id {
+    font-weight: bold;
+    color: var(--accent);
+    margin-right: 5px;
+}
+
