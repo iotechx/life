@@ -105,24 +105,35 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // 3. Bibliography
-            else if(section.type === 'bibliography') {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'bibliography';
-                const h2 = document.createElement('h2');
-                h2.textContent = section.heading;
-                wrapper.appendChild(h2);
+            // 3. Bibliography
+else if(section.type === 'bibliography') {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'bibliography';
+    const h2 = document.createElement('h2');
+    h2.textContent = section.heading;
+    wrapper.appendChild(h2);
 
-                section.entries.forEach(entry => {
-                    const div = document.createElement('div');
-                    div.className = 'bib-entry';
-                    div.id = `ref-${entry.id}`; 
-                    div.innerHTML = `[${entry.id}] ${entry.text}`;
-                    wrapper.appendChild(div);
-                });
-                app.appendChild(wrapper);
-            }
-        });
-    }
+    section.entries.forEach(entry => {
+        const div = document.createElement('div');
+        div.className = 'bib-entry';
+        div.id = `ref-${entry.id}`;
+
+        // Create the content string
+        let content = `<span class="bib-id">[${entry.id}]</span> `;
+        
+        // If a URL exists, wrap the text in an anchor tag
+        if (entry.url) {
+            content += `<a href="${entry.url}" target="_blank" rel="noopener noreferrer">${entry.text}</a> <span style="font-size:0.8em">↗</span>`;
+        } else {
+            content += entry.text;
+        }
+
+        div.innerHTML = content;
+        wrapper.appendChild(div);
+    });
+    app.appendChild(wrapper);
+}
+
 
     // Helper: Convert [123] text to clickable links
     function parseText(text) {
