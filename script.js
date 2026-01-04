@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
+            app.innerHTML = '';
             renderThesis(data);
         })
         .catch(err => {
@@ -46,6 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
         app.appendChild(header);
+
+        // Initialize Figure Counter (Since your images are named 1.jpg, 2.jpg...)
+        let figureCounter = 1;
 
         // Render Content Sections
         thesisData.content.forEach(section => {
@@ -95,15 +99,22 @@ document.addEventListener('DOMContentLoaded', () => {
                         bq.innerHTML = parseText(item.text);
                         wrapper.appendChild(bq);
                     }
-                    // Image Placeholder
+                    // --- IMAGE LOGIC UPDATED HERE ---
                     else if (item.type === 'image') {
                         const figure = document.createElement('figure');
-                        const imageUrl = `https://placehold.co/600x300/EEE/31343C?text=${encodeURIComponent(item.query)}`;
+                        
+                        // Automatically assign 1.png, 2.png based on order
+                        // Note: Ensure your local files are named 1.png, 2.png etc.
+                        const localImageSource = `${figureCounter}.png`;
+                        
                         figure.innerHTML = `
-                            <img src="${imageUrl}" alt="${item.alt}">
+                            <img src="${localImageSource}" alt="${item.alt}" onerror="this.onerror=null;this.parentElement.innerHTML='<p style=color:red>[Image missing: ${localImageSource}]</p>'">
                             <figcaption>${item.caption}</figcaption>
                         `;
                         wrapper.appendChild(figure);
+                        
+                        // Increment counter for next image
+                        figureCounter++; 
                     }
                 });
                 app.appendChild(wrapper);
@@ -122,7 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     div.className = 'bib-entry';
                     div.id = `ref-${entry.id}`;
 
-                    // All entries have URLs in this filtered version
                     let content = `<span class="bib-id">[${entry.id}]</span> `;
                     content += `<a href="${entry.url}" target="_blank" rel="noopener noreferrer">${entry.text}</a> <span style="font-size:0.8em">↗</span>`;
 
