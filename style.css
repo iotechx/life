@@ -1,4 +1,5 @@
 :root {
+  /* Default fallbacks, overridden by JSON config via JS */
   --primary: #2c3e50;
   --secondary: #34495e;
   --accent: #e74c3c;
@@ -74,7 +75,7 @@ a.citation-link {
 }
 a.citation-link:hover { text-decoration: underline; }
 
-/* COMPONENTS */
+/* DEFINITIONS */
 .definition-list {
   background: #f9f9f9;
   padding: 20px;
@@ -83,6 +84,7 @@ a.citation-link:hover { text-decoration: underline; }
 }
 .def-term { font-weight: bold; color: var(--primary); }
 
+/* QUOTES */
 blockquote {
   font-style: italic;
   background: #f0f4f8;
@@ -91,7 +93,7 @@ blockquote {
   border-left: 5px solid var(--primary);
 }
 
-/* IMAGE GENERATION PLACEHOLDER */
+/* IMAGES */
 figure {
   margin: 30px 0;
   text-align: center;
@@ -127,23 +129,21 @@ figcaption {
   text-indent: -30px;
   font-size: 0.9rem;
 }
-.bib-entry:target {
-  background-color: #fff3cd; /* Highlight when clicked */
-  transition: background-color 0.5s;
+.bib-id {
+  font-weight: bold;
+  color: var(--accent);
+  margin-right: 5px;
 }
-
 .bib-entry a {
-    color: var(--primary);
-    text-decoration: none;
-    border-bottom: 1px dotted var(--accent);
+  color: var(--primary);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--accent);
 }
 .bib-entry a:hover {
-    color: var(--accent);
-    border-bottom: 1px solid var(--accent);
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
 }
-.bib-id {
-    font-weight: bold;
-    color: var(--accent);
-    margin-right: 5px;
+.bib-entry:target {
+  background-color: #fff3cd; 
+  transition: background-color 0.5s;
 }
-
